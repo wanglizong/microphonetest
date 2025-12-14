@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO Meta -->
+  <meta name="description"
+    content="Free online webcam test tool. Test your camera, video quality, resolution and preview instantly in your browser. No download required." />
+  <meta name="keywords" content="webcam test, camera test, online webcam test, video test, camera preview" />
+  <meta name="author" content="WebcamTest" />
+
+  <title>Webcam Test – Online Camera Test Tool</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+
+  <style>
+    .visualizer {
+      width: 100%;
+      background: #000;
+      border-radius: 12px;
+    }
+
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    .status-danger {
+      background: #dc3545;
+    }
+
+    .status-success {
+      background: #28a745;
+    }
+
+    video.mirror {
+      transform: scaleX(-1);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container py-4">
+    <header class="border-bottom bg-white sticky-top">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light py-2">
+          <a class="navbar-brand fw-bold d-flex align-items-center" href="/">
+            🎧 SpeakerTest
+          </a>
+
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3">
+              <li class="nav-item">
+                <a class="nav-link active fw-semibold" href="/">
+                  Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-semibold" href="/webcam-test.html">
+                  Webcam Test
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <div class="card shadow-lg rounded-4 p-4 mx-auto" style="max-width: 800px">
+      <div class="text-center mb-3">
+        <h2>🎥 Webcam Test</h2>
+        <p class="text-muted mb-0">Test your webcam instantly in your browser.</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="mb-4">
+        <label class="form-label fw-bold">📷 Camera Source</label>
+        <select id="cameraSelect" class="form-select"></select>
+      </div>
+
+      <div class="d-flex flex-wrap gap-3 mb-3 justify-content-between align-items-center">
+        <div>
+          <label class="fw-bold me-2">Resolution</label>
+          <select id="resolutionSelect" class="form-select d-inline-block w-auto">
+            <option value="640x480">640 × 480</option>
+            <option value="1280x720" selected>1280 × 720</option>
+            <option value="1920x1080">1920 × 1080</option>
+          </select>
+        </div>
+
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="mirrorToggle" />
+          <label class="form-check-label">Mirror</label>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="text-center mb-4">
+        <button class="btn btn-primary me-2 px-4" id="startBtn">
+          <i class="bi bi-camera-video-fill me-2"></i>Start
+        </button>
+        <button class="btn btn-outline-danger me-2 px-4" id="stopBtn" disabled>
+          <i class="bi bi-stop-fill me-2"></i>Stop
+        </button>
+        <button class="btn btn-success px-4" id="snapshotBtn" disabled>
+          <i class="bi bi-camera me-2"></i>Snapshot
+        </button>
+      </div>
+
+      <!-- Status -->
+      <div class="d-flex justify-content-between align-items-center small mb-3">
+        <div>
+          <span class="status-indicator status-danger" id="statusIndicator"></span>
+          <strong>Status:</strong>
+          <span id="status" class="text-danger">Not Connected</span>
+        </div>
+        <div>
+          <strong>Testing:</strong>
+          <span id="timer">00:00</span>
+        </div>
+      </div>
+
+      <!-- Video Preview -->
+      <video id="video" class="visualizer" autoplay playsinline></video>
+
+      <!-- Hidden canvas for snapshot -->
+      <canvas id="canvas" hidden></canvas>
+    </div>
+    <section class="mt-5">
+      <h2 class="fw-bold mb-3">Test Your Webcam Online in Seconds</h2>
+      <p class="text-muted">
+        No downloads. No sign-up. Just click <strong>Start Camera</strong> and instantly verify
+        your webcam is working properly.
+      </p>
+
+      <ul class="list-unstyled mt-3">
+        <li>✅ Live Camera Preview</li>
+        <li>✅ Capture Snapshot</li>
+        <li>✅ Download Image</li>
+        <li>✅ Works on Laptop & Mobile</li>
+      </ul>
+
+      <h3 class="fw-bold mt-4">Features</h3>
+      <div class="table-responsive">
+        <table class="table table-bordered mt-2">
+          <thead class="table-light">
+            <tr>
+              <th>Feature</th>
+              <th>Benefit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Instant camera check</td>
+              <td>Verify webcam before Zoom / Meet / Teams calls</td>
+            </tr>
+            <tr>
+              <td>Photo capture</td>
+              <td>Confirm image clarity & focus</td>
+            </tr>
+            <tr>
+              <td>Download snapshot</td>
+              <td>Save a sample photo for setup checks</td>
+            </tr>
+            <tr>
+              <td>Browser-based</td>
+              <td>No software needed — works online</td>
+            </tr>
+            <tr>
+              <td>Mobile & Desktop</td>
+              <td>Test phone, tablet & laptop cameras</td>
+            </tr>
+            <tr>
+              <td>Secure & private</td>
+              <td>Camera runs locally on your device only</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="fw-bold mt-4">How It Works</h3>
+      <ol>
+        <li>Click <strong>Start Camera</strong></li>
+        <li>Allow browser access</li>
+        <li>See live preview instantly</li>
+        <li>Click <strong>Snapshot</strong></li>
+        <li>Download the captured image</li>
+      </ol>
+
+      <h3 class="fw-bold mt-4">Privacy Guaranteed</h3>
+      <p>
+        Your video never leaves your device.
+        We do <strong>not record, store, or access</strong> any camera feed.
+        Everything runs locally inside your browser.
+      </p>
+
+      <h3 class="fw-bold mt-4">FAQ</h3>
+
+      <p><strong>Q1. How do I test my camera online?</strong><br />
+        Click Start Camera, allow permission, and view live preview instantly.</p>
+
+      <p><strong>Q2. Is this webcam test safe?</strong><br />
+        Yes. Everything runs locally in your browser.</p>
+
+      <p><strong>Q3. Can I test my laptop camera?</strong><br />
+        Yes. Works on any device with a camera.</p>
+
+      <p><strong>Q4. Why is my camera not working?</strong></p>
+      <ul>
+        <li>Camera permission blocked</li>
+        <li>Camera in use by another app</li>
+        <li>Disabled system camera settings</li>
+        <li>Outdated browser or drivers</li>
+      </ul>
+    </section>
+  </div>
+
+  <script src="camscript.js"></script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVGNY8FVJE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-VVGNY8FVJE');
+  </script>
+</body>
+
+</html>
