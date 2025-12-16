@@ -1,336 +1,351 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8" />
-<title>Online Speaker Test – Spectrum & Sweep</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title> Speaker Test – Spectrum & Sweep</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<meta name="description"
-  content="Professional online speaker test. Test left and right speakers, frequency sweep, spectrum analyzer, white noise and pink noise directly in your browser." />
-<meta name="keywords"
-  content="speaker test, audio test, sound test, frequency sweep, spectrum analyzer, white noise, pink noise" />
+    <meta name="description"
+        content="Professional online speaker test. Test left and right speakers, frequency sweep, spectrum analyzer, white noise and pink noise directly in your browser." />
+    <meta name="keywords"
+        content="speaker test, audio test, sound test, frequency sweep, spectrum analyzer, white noise, pink noise" />
 
-<style>
-:root {
-  --primary: #0d6efd;
-  --danger: #dc3545;
-  --secondary: #6c757d;
-  --bg: #f3f5f7;
-  --card: #ffffff;
-  --dark: #111;
-}
+    <style>
+        :root {
+            --primary: #0d6efd;
+            --danger: #dc3545;
+            --secondary: #6c757d;
+            --bg: #f3f5f7;
+            --card: #ffffff;
+            --dark: #111;
+        }
 
-* { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont;
-  background: var(--bg);
-  color: #222;
-}
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont;
+            background: var(--bg);
+            color: #222;
+        }
 
-/* ===== Header ===== */
-header {
-  background: #fff;
-  border-bottom: 1px solid #e5e7eb;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
+        /* ===== Header ===== */
+        header {
+            background: #fff;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
 
-.nav {
-  max-width: 1100px;
-  margin: auto;
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+        .nav {
+            max-width: 1100px;
+            margin: auto;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-.nav a {
-  text-decoration: none;
-  color: #222;
-  font-weight: 600;
-  margin-left: 18px;
-}
+        .nav a {
+            text-decoration: none;
+            color: #222;
+            font-weight: 600;
+            margin-left: 18px;
+        }
 
-.brand {
-  font-size: 18px;
-  font-weight: 800;
-}
+        .brand {
+            font-size: 18px;
+            font-weight: 800;
+        }
 
-/* ===== Main ===== */
-main {
-  padding: 32px 16px;
-}
+        /* ===== Main ===== */
+        main {
+            padding: 32px 16px;
+        }
 
-.card {
-  max-width: 640px;
-  margin: auto;
-  background: var(--card);
-  padding: 26px;
-  border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.12);
-}
+        .card {
+            max-width: 640px;
+            margin: auto;
+            background: var(--card);
+            padding: 26px;
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .12);
+        }
 
-h1 {
-  font-size: 24px;
-  margin: 0 0 6px;
-  text-align: center;
-}
+        h1 {
+            font-size: 24px;
+            margin: 0 0 6px;
+            text-align: center;
+        }
 
-.subtitle {
-  text-align: center;
-  color: #666;
-  margin-bottom: 22px;
-  font-size: 14px;
-}
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 22px;
+            font-size: 14px;
+        }
 
-.section {
-  margin-top: 18px;
-}
+        .section {
+            margin-top: 18px;
+        }
 
-.label {
-  font-weight: 600;
-  margin-bottom: 6px;
-}
+        .label {
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
 
-/* ===== Controls ===== */
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
+        /* ===== Controls ===== */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-button {
-  padding: 10px 16px;
-  border: none;
-  border-radius: 10px;
-  background: var(--primary);
-  color: #fff;
-  font-size: 14px;
-  cursor: pointer;
-}
+        button {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 10px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+        }
 
-button.secondary { background: var(--secondary); }
-button.stop { background: var(--danger); }
-button:active { transform: scale(.98); }
+        button.secondary {
+            background: var(--secondary);
+        }
 
-input[type=range],
-select {
-  width: 100%;
-  padding: 6px;
-  border-radius: 8px;
-}
+        button.stop {
+            background: var(--danger);
+        }
 
-/* ===== Spectrum ===== */
-canvas {
-  width: 100%;
-  height: 140px;
-  background: var(--dark);
-  border-radius: 12px;
-  margin-top: 14px;
-}
+        button:active {
+            transform: scale(.98);
+        }
 
-/* ===== Footer ===== */
-footer {
-  text-align: center;
-  color: #777;
-  font-size: 13px;
-  margin: 30px 0 10px;
-}
-</style>
+        input[type=range],
+        select {
+            width: 100%;
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+        /* ===== Spectrum ===== */
+        canvas {
+            width: 100%;
+            height: 140px;
+            background: var(--dark);
+            border-radius: 12px;
+            margin-top: 14px;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            text-align: center;
+            color: #777;
+            font-size: 13px;
+            margin: 30px 0 10px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-  <div class="nav">
-    <div class="brand">🎧 SpeakerTest</div>
-    <div>
-      <a href="/">Home</a>
-      <a href="/microphone-test.html">Mic Test</a>
-      <a href="/webcam-test.html">Webcam Test</a>
-    </div>
-  </div>
-</header>
+    <header>
+        <div class="nav">
+            <div class="brand">🎧 SpeakerTest</div>
+            <div>
+                <a href="/">Home</a>
+                <a href="/microphone-test.html">Mic Test</a>
+                <a href="/webcam-test.html">Webcam Test</a>
+                <a href="/mouse-test.html">Mouse Test</a>
+                <a href="/keyboard-test.html">Keyboard Test</a>
+                <a href="/touchpad-test.html">Touchpad Test</a>
+            </div>
+        </div>
+    </header>
 
-<main>
-  <div class="card">
-    <h1>🔊 Speaker Test </h1>
-    <div class="subtitle">
-      Test left / right speakers, frequency response and audio quality
-    </div>
+    <main>
+        <div class="card">
+            <h1>🔊 Speaker Test </h1>
+            <div class="subtitle">
+                Test left / right speakers, frequency response and audio quality
+            </div>
 
-    <!-- Channel -->
-    <div class="section">
-      <div class="label">Channel</div>
-      <div class="controls">
-        <button onclick="playSine(-1)">Left</button>
-        <button onclick="playSine(0)">Both</button>
-        <button onclick="playSine(1)">Right</button>
-      </div>
-    </div>
+            <!-- Channel -->
+            <div class="section">
+                <div class="label">Channel</div>
+                <div class="controls">
+                    <button onclick="playSine(-1)">Left</button>
+                    <button onclick="playSine(0)">Both</button>
+                    <button onclick="playSine(1)">Right</button>
+                </div>
+            </div>
 
-    <!-- Volume -->
-    <div class="section">
-      <div class="label">Volume</div>
-      <input id="volume" type="range" min="0" max="1" step="0.01" value="0.5">
-    </div>
+            <!-- Volume -->
+            <div class="section">
+                <div class="label">Volume</div>
+                <input id="volume" type="range" min="0" max="1" step="0.01" value="0.5">
+            </div>
 
-    <!-- Frequency -->
-    <div class="section">
-      <div class="label">Sine Frequency</div>
-      <select id="frequency">
-        <option value="200">200 Hz</option>
-        <option value="440" selected>440 Hz</option>
-        <option value="1000">1000 Hz</option>
-        <option value="3000">3000 Hz</option>
-      </select>
-    </div>
+            <!-- Frequency -->
+            <div class="section">
+                <div class="label">Sine Frequency</div>
+                <select id="frequency">
+                    <option value="200">200 Hz</option>
+                    <option value="440" selected>440 Hz</option>
+                    <option value="1000">1000 Hz</option>
+                    <option value="3000">3000 Hz</option>
+                </select>
+            </div>
 
-    <!-- Noise -->
-    <div class="section">
-      <div class="label">Noise</div>
-      <div class="controls">
-        <button class="secondary" onclick="whiteNoise()">White Noise</button>
-        <button class="secondary" onclick="pinkNoise()">Pink Noise</button>
-      </div>
-    </div>
+            <!-- Noise -->
+            <div class="section">
+                <div class="label">Noise</div>
+                <div class="controls">
+                    <button class="secondary" onclick="whiteNoise()">White Noise</button>
+                    <button class="secondary" onclick="pinkNoise()">Pink Noise</button>
+                </div>
+            </div>
 
-    <!-- Sweep -->
-    <div class="section">
-      <div class="label">Frequency Sweep</div>
-      <button onclick="sweep()">20Hz → 20kHz Sweep</button>
-    </div>
+            <!-- Sweep -->
+            <div class="section">
+                <div class="label">Frequency Sweep</div>
+                <button onclick="sweep()">20Hz → 20kHz Sweep</button>
+            </div>
 
-    <!-- Stop -->
-    <div class="section">
-      <button class="stop" onclick="stop()">⏹ Stop</button>
-    </div>
+            <!-- Stop -->
+            <div class="section">
+                <button class="stop" onclick="stop()">⏹ Stop</button>
+            </div>
 
-    <!-- Spectrum -->
-    <canvas id="spectrum"></canvas>
-  </div>
-</main>
+            <!-- Spectrum -->
+            <canvas id="spectrum"></canvas>
+        </div>
+    </main>
 
-<footer>
-  © 2025 SpeakerTest · No download · Pure browser audio test
-</footer>
+    <footer>
+        © 2025 SpeakerTest · No download · Pure browser audio test
+    </footer>
 
-<script>
-let ctx, source, gain, pan, analyser, raf;
-const canvas = document.getElementById("spectrum");
-const cctx = canvas.getContext("2d");
+    <script>
+        let ctx, source, gain, pan, analyser, raf;
+        const canvas = document.getElementById("spectrum");
+        const cctx = canvas.getContext("2d");
 
-function resizeCanvas() {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-}
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
 
-async function initAudio(channel = 0) {
-  stop(false);
+        async function initAudio(channel = 0) {
+            stop(false);
 
-  ctx = new (window.AudioContext || window.webkitAudioContext)();
-  await ctx.resume();
+            ctx = new (window.AudioContext || window.webkitAudioContext)();
+            await ctx.resume();
 
-  gain = ctx.createGain();
-  pan = ctx.createStereoPanner();
-  analyser = ctx.createAnalyser();
+            gain = ctx.createGain();
+            pan = ctx.createStereoPanner();
+            analyser = ctx.createAnalyser();
 
-  analyser.fftSize = 2048;
+            analyser.fftSize = 2048;
 
-  gain.gain.value = volume.value;
-  pan.pan.value = channel;
+            gain.gain.value = volume.value;
+            pan.pan.value = channel;
 
-  gain.connect(pan).connect(analyser).connect(ctx.destination);
-  drawSpectrum();
-}
+            gain.connect(pan).connect(analyser).connect(ctx.destination);
+            drawSpectrum();
+        }
 
-volume.oninput = () => gain && (gain.gain.value = volume.value);
+        volume.oninput = () => gain && (gain.gain.value = volume.value);
 
-async function playSine(ch) {
-  await initAudio(ch);
-  source = ctx.createOscillator();
-  source.type = "sine";
-  source.frequency.value = frequency.value;
-  source.connect(gain);
-  source.start();
-}
+        async function playSine(ch) {
+            await initAudio(ch);
+            source = ctx.createOscillator();
+            source.type = "sine";
+            source.frequency.value = frequency.value;
+            source.connect(gain);
+            source.start();
+        }
 
-async function whiteNoise() {
-  await initAudio(0);
-  const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-  source = ctx.createBufferSource();
-  source.buffer = buffer;
-  source.loop = true;
-  source.connect(gain);
-  source.start();
-}
+        async function whiteNoise() {
+            await initAudio(0);
+            const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+            source = ctx.createBufferSource();
+            source.buffer = buffer;
+            source.loop = true;
+            source.connect(gain);
+            source.start();
+        }
 
-async function pinkNoise() {
-  await initAudio(0);
-  const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
-  for (let i=0;i<data.length;i++){
-    const w=Math.random()*2-1;
-    b0=.99886*b0+w*.0555;
-    b1=.99332*b1+w*.075;
-    b2=.969*b2+w*.153;
-    b3=.8665*b3+w*.310;
-    b4=.55*b4+w*.532;
-    b5=-.7616*b5-w*.016;
-    data[i]=(b0+b1+b2+b3+b4+b5+b6+w*.536)*.11;
-    b6=w*.115;
-  }
-  source = ctx.createBufferSource();
-  source.buffer = buffer;
-  source.loop = true;
-  source.connect(gain);
-  source.start();
-}
+        async function pinkNoise() {
+            await initAudio(0);
+            const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+            for (let i = 0; i < data.length; i++) {
+                const w = Math.random() * 2 - 1;
+                b0 = .99886 * b0 + w * .0555;
+                b1 = .99332 * b1 + w * .075;
+                b2 = .969 * b2 + w * .153;
+                b3 = .8665 * b3 + w * .310;
+                b4 = .55 * b4 + w * .532;
+                b5 = -.7616 * b5 - w * .016;
+                data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * .536) * .11;
+                b6 = w * .115;
+            }
+            source = ctx.createBufferSource();
+            source.buffer = buffer;
+            source.loop = true;
+            source.connect(gain);
+            source.start();
+        }
 
-async function sweep() {
-  await initAudio(0);
-  source = ctx.createOscillator();
-  source.frequency.setValueAtTime(20, ctx.currentTime);
-  source.frequency.exponentialRampToValueAtTime(20000, ctx.currentTime + 10);
-  source.connect(gain);
-  source.start();
-}
+        async function sweep() {
+            await initAudio(0);
+            source = ctx.createOscillator();
+            source.frequency.setValueAtTime(20, ctx.currentTime);
+            source.frequency.exponentialRampToValueAtTime(20000, ctx.currentTime + 10);
+            source.connect(gain);
+            source.start();
+        }
 
-function stop(close = true) {
-  if (source) { try { source.stop(); } catch{} source.disconnect(); source=null; }
-  if (close && ctx) { ctx.close(); ctx=null; }
-  cancelAnimationFrame(raf);
-  cctx.clearRect(0,0,canvas.width,canvas.height);
-}
+        function stop(close = true) {
+            if (source) { try { source.stop(); } catch { } source.disconnect(); source = null; }
+            if (close && ctx) { ctx.close(); ctx = null; }
+            cancelAnimationFrame(raf);
+            cctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
 
-function drawSpectrum() {
-  const bufferLength = analyser.frequencyBinCount;
-  const data = new Uint8Array(bufferLength);
+        function drawSpectrum() {
+            const bufferLength = analyser.frequencyBinCount;
+            const data = new Uint8Array(bufferLength);
 
-  function draw() {
-    raf = requestAnimationFrame(draw);
-    analyser.getByteFrequencyData(data);
-    cctx.fillStyle="#111";
-    cctx.fillRect(0,0,canvas.width,canvas.height);
-    let x=0, barW=canvas.width/bufferLength*2.2;
-    for(let i=0;i<bufferLength;i++){
-      const h=data[i]/255*canvas.height;
-      cctx.fillStyle="rgb(0,200,255)";
-      cctx.fillRect(x,canvas.height-h,barW,h);
-      x+=barW+1;
-    }
-  }
-  draw();
-}
-</script>
+            function draw() {
+                raf = requestAnimationFrame(draw);
+                analyser.getByteFrequencyData(data);
+                cctx.fillStyle = "#111";
+                cctx.fillRect(0, 0, canvas.width, canvas.height);
+                let x = 0, barW = canvas.width / bufferLength * 2.2;
+                for (let i = 0; i < bufferLength; i++) {
+                    const h = data[i] / 255 * canvas.height;
+                    cctx.fillStyle = "rgb(0,200,255)";
+                    cctx.fillRect(x, canvas.height - h, barW, h);
+                    x += barW + 1;
+                }
+            }
+            draw();
+        }
+    </script>
 
 </body>
+
 </html>
