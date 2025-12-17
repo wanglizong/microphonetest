@@ -7,9 +7,9 @@
 
     <!-- Primary SEO Meta -->
     <meta name="description"
-        content="Free online mouse test tool. Test your mouse buttons, left click, right click, middle click and scroll wheel instantly in your browser." />
+        content="Free online mouse test tool. Test your mouse buttons, left click, right click, middle click, scroll wheel and mouse polling rate instantly in your browser." />
     <meta name="keywords"
-        content="mouse test, mouse button test, left click test, right click test, middle click test, scroll wheel test, online mouse test" />
+        content="mouse test, mouse button test, left click test, right click test, middle click test, scroll wheel test, mouse polling rate, online mouse test" />
     <meta name="author" content="MouseTest" />
 
     <title>Mouse Test – Online Mouse Button Test Tool</title>
@@ -105,18 +105,10 @@
                         <li class="nav-item"><a class="nav-link active fw-semibold" href="/">Home</a></li>
                         <li class="nav-item"><a class="nav-link fw-semibold" href="/microphone-test.html">Microphone
                                 Test</a></li>
-                        <li class="nav-item">
-                            <a class="nav-link fw-semibold" href="/webcam-test.html">
-                                Webcam Test
-                            </a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link fw-semibold" href="/mouse-test.html">Mouse Test</a>
-                        </li>
-                        <li class="nav-item"><a class="nav-link fw-semibold" href="/keyboard-test.html">Keyboard
-                                Test</a></li>
-                        <li class="nav-item"><a class="nav-link fw-semibold" href="/touchpad-test.html">Touchpad
-                                Test</a></li>
-
+                        <li class="nav-item"><a class="nav-link fw-semibold" href="/webcam-test.html">Webcam Test</a></li>
+                        <li class="nav-item"><a class="nav-link fw-semibold" href="/mouse-test.html">Mouse Test</a></li>
+                        <li class="nav-item"><a class="nav-link fw-semibold" href="/keyboard-test.html">Keyboard Test</a></li>
+                        <li class="nav-item"><a class="nav-link fw-semibold" href="/touchpad-test.html">Touchpad Test</a></li>
                     </ul>
                 </div>
             </nav>
@@ -128,7 +120,7 @@
         <div class="card shadow-lg rounded-4 p-4 mx-auto" style="max-width: 720px;">
             <div class="text-center mb-3">
                 <h2>🖱 Mouse Test</h2>
-                <p class="text-muted mb-0">Test your mouse buttons instantly in your browser.</p>
+                <p class="text-muted mb-0">Test your mouse buttons and polling rate instantly in your browser.</p>
             </div>
 
             <div class="text-center my-4">
@@ -137,29 +129,30 @@
                     <div class="btn-mouse btn-right" id="rightBtn"></div>
                     <div class="wheel" id="middleBtn"></div>
                 </div>
-                <p class="text-muted mt-3">Click your real mouse buttons to see highlights</p>
+                <p class="text-muted mt-3">Click your mouse buttons or move the mouse to see highlights and polling rate.</p>
+            </div>
+
+            <!-- Mouse Polling Rate Display -->
+            <div class="mt-3 text-center">
+                <h5>Mouse Polling Rate: <span id="pollingRate">0</span> Hz</h5>
             </div>
 
             <div class="log" id="log"></div>
+
             <div class="mt-4">
                 <h3 class="h5 fw-bold mb-3">About This Mouse Test</h3>
-
                 <p>
-                    This online mouse test helps you instantly check whether your mouse buttons
-                    and scroll wheel are working properly, directly in your browser — no download required.
+                    This online mouse test helps you instantly check whether your mouse buttons,
+                    scroll wheel and polling rate are working properly, directly in your browser — no download required.
                 </p>
 
                 <h4 class="h6 fw-semibold mt-4">Why use this mouse test?</h4>
                 <p>
-                    While testing the left and right mouse buttons is easy, many users struggle
-                    to verify the middle button, scroll wheel, or side buttons on a new or malfunctioning mouse.
-                    This tool makes it simple to test them all in one place.
+                    While testing the left and right mouse buttons is easy, this tool also measures
+                    the middle button, scroll wheel, side buttons, and mouse polling rate.
                 </p>
 
                 <h4 class="h6 fw-semibold mt-4">Which mouse buttons can be tested?</h4>
-                <p>
-                    This mouse test detects the following buttons:
-                </p>
                 <ul>
                     <li>Button 1 – Left mouse button</li>
                     <li>Button 2 – Middle mouse button (scroll wheel click)</li>
@@ -168,15 +161,9 @@
                     <li>Button 5 – Side button</li>
                 </ul>
 
-                <p class="text-muted">
-                    Note: On unconventional mouse layouts, button numbers may correspond to
-                    different physical buttons.
-                </p>
-
                 <h4 class="h6 fw-semibold mt-4">Browser compatibility</h4>
                 <p>
-                    This mouse test works best on modern browsers such as
-                    <strong>Chrome</strong> and <strong>Firefox</strong>.
+                    Works best on modern browsers like <strong>Chrome</strong> and <strong>Firefox</strong>.
                     Some older browsers may not fully support all mouse events.
                 </p>
             </div>
@@ -189,6 +176,7 @@
         const rightBtn = document.getElementById('rightBtn');
         const middleBtn = document.getElementById('middleBtn');
         const log = document.getElementById('log');
+        const pollingRateEl = document.getElementById('pollingRate');
 
         function writeLog(msg) {
             const t = new Date().toLocaleTimeString();
@@ -196,19 +184,11 @@
             log.scrollTop = log.scrollHeight;
         }
 
+        // Mouse button events
         document.addEventListener('mousedown', e => {
-            if (e.button === 0) {
-                leftBtn.classList.add('active');
-                writeLog('Left button pressed');
-            }
-            if (e.button === 1) {
-                middleBtn.classList.add('active');
-                writeLog('Middle button pressed');
-            }
-            if (e.button === 2) {
-                rightBtn.classList.add('active');
-                writeLog('Right button pressed');
-            }
+            if (e.button === 0) { leftBtn.classList.add('active'); writeLog('Left button pressed'); }
+            if (e.button === 1) { middleBtn.classList.add('active'); writeLog('Middle button pressed'); }
+            if (e.button === 2) { rightBtn.classList.add('active'); writeLog('Right button pressed'); }
         });
 
         document.addEventListener('mouseup', () => {
@@ -217,13 +197,29 @@
             middleBtn.classList.remove('active');
         });
 
+        // Scroll wheel
         document.addEventListener('wheel', e => {
             middleBtn.classList.add('active');
             writeLog(e.deltaY < 0 ? 'Scroll up' : 'Scroll down');
             setTimeout(() => middleBtn.classList.remove('active'), 150);
         });
 
+        // Prevent context menu on right click
         document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // Mouse polling rate calculation
+        let lastMoveTime = performance.now();
+        let avgRate = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            const now = performance.now();
+            const interval = now - lastMoveTime;
+            lastMoveTime = now;
+
+            const rate = 1000 / interval;
+            avgRate = avgRate ? avgRate * 0.8 + rate * 0.2 : rate; // 平滑处理
+            pollingRateEl.textContent = Math.round(Math.min(avgRate, 1000));
+        });
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
