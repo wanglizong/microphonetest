@@ -3,14 +3,30 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Speaker Test Online | Spectrum, Sweep & Noise Test – SpeakerTest</title>
+    <title>Speaker Test Online | Check Left/Right Audio & Frequency Response</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <meta name="description"
-        content="Professional online speaker test. Test left and right speakers, frequency sweep, spectrum analyzer, white noise and pink noise directly in your browser." />
+          content="Free professional online speaker test. Test left and right speakers, 20Hz-20kHz frequency sweep, spectrum analyzer, white noise, and pink noise directly in your browser." />
     <meta name="keywords"
-        content="speaker test, audio test, sound test, frequency sweep, spectrum analyzer, white noise, pink noise, stereo test" />
+          content="speaker test, audio test, left right sound test, frequency sweep online, subwoofer test, pink noise generator, headphones test" />
     <link rel="icon" href="/img/favicon_speaker.png" type="image/png" />
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "SpeakerTest Online",
+            "operatingSystem": "All",
+            "applicationCategory": "UtilitiesApplication",
+            "description": "A comprehensive suite of audio testing tools including channel balance, frequency sweeps, and noise generators.",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            }
+        }
+    </script>
 
     <style>
         :root {
@@ -18,111 +34,97 @@
             --primary-hover: #0b5ed7;
             --danger: #dc3545;
             --secondary: #6c757d;
-            --bg: #f3f5f7;
+            --bg: #f8f9fa;
             --card: #ffffff;
-            --dark: #111;
-            --text-main: #222;
+            --dark: #121212;
+            --text: #333;
         }
 
         * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background: var(--bg);
-            color: var(--text-main);
-            line-height: 1.6;
+            color: var(--text);
+            line-height: 1.5;
         }
 
-        /* ===== Header & Navigation ===== */
+        /* ===== Header ===== */
         header {
             background: #fff;
-            border-bottom: 1px solid #e5e7eb;
+            border-bottom: 1px solid #dee2e6;
             position: sticky;
             top: 0;
-            z-index: 1000;
+            z-index: 100;
         }
 
         .nav {
             max-width: 1100px;
             margin: auto;
-            padding: 12px 20px;
+            padding: 15px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .brand {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--dark);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #555;
-            font-weight: 600;
-            font-size: 14px;
+            color: #444;
+            font-weight: 500;
+            margin-left: 20px;
             transition: color 0.2s;
         }
 
         .nav-links a:hover { color: var(--primary); }
 
-        @media (max-width: 850px) {
-            .nav { justify-content: center; flex-direction: column; gap: 10px; }
-            .nav-links { justify-content: center; }
+        .brand {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* ===== Main Content ===== */
+        /* ===== Layout ===== */
         main {
-            padding: 32px 16px;
             max-width: 1100px;
-            margin: auto;
-        }
-
-        .test-grid {
+            margin: 40px auto;
+            padding: 0 20px;
             display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 25px;
+            grid-template-columns: 1fr 320px;
+            gap: 30px;
         }
 
-        @media (max-width: 900px) {
-            .test-grid { grid-template-columns: 1fr; }
+        @media (max-width: 850px) {
+            main { grid-template-columns: 1fr; }
         }
 
         .card {
             background: var(--card);
             padding: 30px;
-            border-radius: 18px;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
         }
 
-        h1 { font-size: 26px; margin: 0 0 8px; text-align: center; }
-        .subtitle { text-align: center; color: #666; margin-bottom: 25px; font-size: 15px; }
+        h1 { font-size: 26px; margin: 0 0 10px; text-align: center; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 15px; }
 
-        .section { margin-bottom: 24px; }
-        .label { 
-            font-weight: 700; 
-            margin-bottom: 8px; 
-            display: flex; 
+        .section { margin-bottom: 25px; }
+        .label {
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
             justify-content: space-between;
-            font-size: 13px;
+            font-size: 14px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #777;
+            color: #555;
         }
-        .status-val { color: var(--primary); font-family: monospace; font-size: 15px; }
+        .val-indicator { color: var(--primary); font-family: monospace; font-size: 16px; }
 
-        /* ===== Controls ===== */
-        .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; }
+        /* ===== Buttons & Inputs ===== */
+        .controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
 
         button {
             padding: 12px;
@@ -130,272 +132,286 @@
             border-radius: 10px;
             background: var(--primary);
             color: #fff;
-            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: transform 0.1s, background 0.2s;
         }
+        button:hover { background: var(--primary-hover); }
+        button:active { transform: translateY(1px); }
+        button.secondary { background: #edf2f7; color: #4a5568; }
+        button.secondary:hover { background: #e2e8f0; }
+        button.stop { background: var(--danger); width: 100%; font-size: 16px; }
 
-        button:hover { background: var(--primary-hover); transform: translateY(-1px); }
-        button.secondary { background: #eaedf0; color: #444; }
-        button.active-mode { outline: 2px solid var(--primary); background: #fff; color: var(--primary); }
+        input[type=range] { width: 100%; cursor: pointer; height: 8px; }
 
-        input[type=range], select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; outline: none; }
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e0;
+            background: #fff;
+            font-size: 15px;
+        }
 
         /* ===== Visualizer ===== */
         canvas {
             width: 100%;
             height: 160px;
-            background: var(--dark);
+            background: #000;
             border-radius: 12px;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
-        /* ===== FAQ ===== */
-        .faq-container { margin-top: 40px; grid-column: 1 / -1; }
-        .faq-item { margin-bottom: 20px; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
-        .faq-item h3 { margin-top: 0; font-size: 18px; }
+        /* ===== Content Section ===== */
+        .info-panel { font-size: 14px; color: #4a5568; }
+        .info-panel h2 { font-size: 18px; color: var(--dark); margin-top: 0; }
 
-        footer { text-align: center; color: #999; font-size: 13px; padding: 40px 0; }
+        .faq-section { margin-top: 60px; border-top: 1px solid #e2e8f0; padding-top: 40px; grid-column: 1 / -1; }
+        .faq-item { margin-bottom: 30px; }
+        .faq-item h3 { font-size: 19px; margin-bottom: 10px; }
+        .faq-item p { color: #555; max-width: 800px; }
+
+        footer { text-align: center; padding: 40px 0; color: #a0aec0; font-size: 14px; }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <div class="nav">
-            <a href="/" class="brand">🎧 SpeakerTest</a>
-            <div class="nav-links">
-                <a href="/mic-test">Microphone</a>
-                <a href="/webcam-test">Webcam</a>
-                <a href="/mouse-test">Mouse</a>
-                <a href="/keyboard-test">Keyboard</a>
-                <a href="/touchpad-test">Touchpad</a>
+<header>
+    <div class="nav">
+        <div class="brand">🎧 SpeakerTest</div>
+        <div class="nav-links">
+            <a href="/mic-test">Microphone</a>
+            <a href="/webcam-test">Webcam</a>
+            <a href="/mouse-test">Mouse</a>
+            <a href="/keyboard-test">Keyboard</a>
+            <a href="/touchpad-test">Touchpad</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <article class="card">
+        <h1>Audio Speaker Test</h1>
+        <p class="subtitle">Test your audio hardware performance and channel balance</p>
+
+        <div class="section">
+            <div class="label">Channel Balance</div>
+            <div class="controls">
+                <button onclick="playSine(-1)">Left (L)</button>
+                <button onclick="playSine(0)">Both (C)</button>
+                <button onclick="playSine(1)">Right (R)</button>
             </div>
         </div>
-    </header>
 
-    <main>
-        <div class="test-grid">
-            <div class="card">
-                <h1>Online Speaker Test</h1>
-                <p class="subtitle">Instant audio diagnostic for speakers and headphones.</p>
-
-                <div class="section">
-                    <div class="label">Master Volume <span id="vol-display" class="status-val">50%</span></div>
-                    <input id="volume" type="range" min="0" max="1" step="0.01" value="0.5" oninput="updateUI()">
-                </div>
-
-                <div class="section">
-                    <div class="label">Stereo Balance Test</div>
-                    <div class="controls">
-                        <button onclick="playSine(-1)">Left Only</button>
-                        <button onclick="playSine(0)">Center (Both)</button>
-                        <button onclick="playSine(1)">Right Only</button>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="label">Manual Frequency <span id="freq-display" class="status-val">440 Hz</span></div>
-                    <select id="frequency" onchange="handleFreqChange()">
-                        <option value="60">60 Hz (Sub-bass)</option>
-                        <option value="200">200 Hz (Low)</option>
-                        <option value="440" selected>440 Hz (Standard)</option>
-                        <option value="1000">1000 Hz (Mid)</option>
-                        <option value="3000">3000 Hz (High-mid)</option>
-                        <option value="10000">10000 Hz (High)</option>
-                    </select>
-                </div>
-
-                <div class="section">
-                    <div class="label">Noise Diagnostics</div>
-                    <div class="controls">
-                        <button class="secondary" onclick="whiteNoise()">White Noise</button>
-                        <button class="secondary" onclick="pinkNoise()">Pink Noise</button>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="label">Auto-Sweep</div>
-                    <button style="width: 100%; background: var(--dark);" onclick="sweep()">Start 20Hz → 20kHz Sweep</button>
-                </div>
-
-                <canvas id="spectrum"></canvas>
-                <p style="text-align:center; font-size:12px; color:#999; margin-top:10px;">To stop audio, refresh page or set volume to zero.</p>
-            </div>
-
-            <aside>
-                <div class="card" style="padding: 20px; font-size: 14px;">
-                    <h2 style="font-size: 18px; margin-top: 0;">Instructions</h2>
-                    <p>• <b>Stereo:</b> Use to identify if your speakers are reversed.</p>
-                    <p>• <b>Sweep:</b> Listen for consistent volume levels as frequencies rise.</p>
-                    <p>• <b>Noise:</b> Professional signal types for stress-testing hardware.</p>
-                </div>
-            </aside>
-
-            <section class="faq-container">
-                <div class="faq-item">
-                    <h3>How do I test my speakers?</h3>
-                    <p>Choose a test mode above. For stereo systems, use the Left/Right buttons. For general health, run the Frequency Sweep to check the full audible range (20Hz to 20,000Hz).</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Why is there no stop button?</h3>
-                    <p>To provide a cleaner interface, selecting a new test automatically replaces the previous sound. You can also slide the Master Volume to 0% to silence the output.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Can this test damage my speakers?</h3>
-                    <p>At normal volume, no. However, be cautious with extremely high frequencies at 100% volume, as this can strain tweeters. Always start at 50% volume.</p>
-                </div>
-            </section>
+        <div class="section">
+            <div class="label">Volume <span id="vol-txt" class="val-indicator">50%</span></div>
+            <input id="volume" type="range" min="0" max="1" step="0.01" value="0.5" oninput="updateVol()">
         </div>
-    </main>
 
-    <footer>
-        © 2025 SpeakerTest · Professional Audio Diagnostic Tools
-    </footer>
+        <div class="section">
+            <div class="label">Sine Wave Frequency <span id="freq-txt" class="val-indicator">440 Hz</span></div>
+            <select id="frequency" onchange="updateFreq()">
+                <option value="60">60 Hz (Sub Bass)</option>
+                <option value="200">200 Hz (Low End)</option>
+                <option value="440" selected>440 Hz (Standard A)</option>
+                <option value="1000">1000 Hz (Mid Range)</option>
+                <option value="3000">3000 Hz (High Mid)</option>
+                <option value="10000">10000 Hz (Treble)</option>
+            </select>
+        </div>
 
-    <script>
-        let ctx, source, gain, pan, analyser, raf;
-        const canvas = document.getElementById("spectrum");
-        const cctx = canvas.getContext("2d");
-        const volInput = document.getElementById("volume");
-        const freqInput = document.getElementById("frequency");
-        const volDisp = document.getElementById("vol-display");
-        const freqDisp = document.getElementById("freq-display");
+        <div class="section">
+            <div class="label">Noise Generation</div>
+            <div class="controls">
+                <button class="secondary" onclick="whiteNoise()">White Noise</button>
+                <button class="secondary" onclick="pinkNoise()">Pink Noise</button>
+            </div>
+        </div>
 
-        let currentMode = null;
+        <div class="section">
+            <div class="label">Frequency Sweep (20Hz - 20kHz)</div>
+            <button style="width: 100%;" onclick="sweep()">Run Logarithmic Sweep</button>
+        </div>
 
-        function updateUI() {
-            volDisp.innerText = Math.round(volInput.value * 100) + "%";
-            freqDisp.innerText = freqInput.value + " Hz";
-            if (gain) gain.gain.setTargetAtTime(volInput.value, ctx.currentTime, 0.05);
+        <canvas id="spectrum"></canvas>
+    </article>
+
+    <aside class="info-panel">
+        <div class="card" style="padding: 20px;">
+            <h2>Testing Tips</h2>
+            <ul>
+                <li><strong>Stereo Check:</strong> Ensure your headphones are on the correct ears.</li>
+                <li><strong>Subwoofer:</strong> Use the 60Hz setting to check low-frequency clarity.</li>
+                <li><strong>Buzzing:</strong> If you hear rattling during the sweep, your speaker cabinet might have loose parts.</li>
+            </ul>
+        </div>
+    </aside>
+
+    <section id="faq" class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <h3>How do I test my left and right speakers separately?</h3>
+            <p>Use the "Channel Balance" buttons above. Clicking "Left" should only produce sound in your left speaker or earbud. This is crucial for gaming and spatial audio accuracy.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What is the difference between White and Pink noise?</h3>
+            <p>White noise has equal power per frequency, sounding like a constant hiss (radio static). Pink noise has equal power per octave, which sounds more natural to the human ear and is often used to tune professional sound systems.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Can I test my subwoofer with this tool?</h3>
+            <p>Yes. Select 60 Hz or 200 Hz in the Frequency dropdown. If you cannot hear anything or the sound is distorted, your device might not support low-frequency playback.</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    © 2025 SpeakerTest Online · Pure Web Audio API · No Software Needed
+</footer>
+
+<script>
+    let ctx, source, gain, pan, analyser, raf;
+    const canvas = document.getElementById("spectrum");
+    const cctx = canvas.getContext("2d");
+    const volInput = document.getElementById("volume");
+    const freqInput = document.getElementById("frequency");
+    const volTxt = document.getElementById("vol-txt");
+    const freqTxt = document.getElementById("freq-txt");
+
+    function updateVol() {
+        volTxt.innerText = Math.round(volInput.value * 100) + "%";
+        if (gain) gain.gain.setTargetAtTime(volInput.value, ctx.currentTime, 0.05);
+    }
+
+    function updateFreq() {
+        freqTxt.innerText = freqInput.value + " Hz";
+    }
+
+    function resize() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+    window.onresize = resize;
+    resize();
+
+    async function init(channel = 0) {
+        stop(false);
+        ctx = new (window.AudioContext || window.webkitAudioContext)();
+        if (ctx.state === 'suspended') await ctx.resume();
+
+        gain = ctx.createGain();
+        pan = ctx.createStereoPanner();
+        analyser = ctx.createAnalyser();
+        analyser.fftSize = 1024;
+
+        gain.gain.value = volInput.value;
+        pan.pan.value = channel;
+
+        gain.connect(pan).connect(analyser).connect(ctx.destination);
+        draw();
+    }
+
+    async function playSine(ch) {
+        await init(ch);
+        updateFreq();
+        source = ctx.createOscillator();
+        source.type = "sine";
+        source.frequency.value = freqInput.value;
+        source.connect(gain);
+        source.start();
+    }
+
+    async function whiteNoise() {
+        await init(0);
+        const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+        source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.loop = true;
+        source.connect(gain);
+        source.start();
+    }
+
+    async function pinkNoise() {
+        await init(0);
+        const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        let b0=0, b1=0, b2=0, b3=0, b4=0, b5=0, b6=0;
+        for (let i = 0; i < data.length; i++) {
+            const w = Math.random() * 2 - 1;
+            b0 = .99886 * b0 + w * .05551;
+            b1 = .99332 * b1 + w * .07503;
+            b2 = .96900 * b2 + w * .15385;
+            b3 = .86650 * b3 + w * .31027;
+            b4 = .55000 * b4 + w * .53295;
+            b5 = -.7616 * b5 - w * .01689;
+            data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * .5362) * 0.11;
+            b6 = w * .11592;
         }
+        source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.loop = true;
+        source.connect(gain);
+        source.start();
+    }
 
-        function handleFreqChange() {
-            if (currentMode === 'sine') {
-                playSine(pan ? pan.pan.value : 0);
+    async function sweep() {
+        await init(0);
+        source = ctx.createOscillator();
+        const now = ctx.currentTime;
+        source.frequency.setValueAtTime(20, now);
+        source.frequency.exponentialRampToValueAtTime(20000, now + 10);
+        source.connect(gain);
+        source.start();
+
+        const startTime = Date.now();
+        const interval = setInterval(() => {
+            if (!source) { clearInterval(interval); return; }
+            const elapsed = (Date.now() - startTime) / 1000;
+            if (elapsed >= 10) {
+                freqTxt.innerText = "20000 Hz";
+                clearInterval(interval);
             } else {
-                updateUI();
+                const f = Math.round(20 * Math.pow(1000, elapsed / 10));
+                freqTxt.innerText = f + " Hz (Sweeping...)";
             }
+        }, 50);
+    }
+
+    function stop(close = true) {
+        if (source) {
+            try {
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+                setTimeout(() => { if (source) { source.stop(); source = null; } }, 120);
+            } catch (e) {}
         }
+        if (close && ctx) {
+            setTimeout(() => { if (ctx) ctx.close(); ctx = null; }, 200);
+        }
+        cancelAnimationFrame(raf);
+        updateFreq();
+    }
 
-        async function initAudio(channel = 0) {
-            // Internal stop
-            if (source) { try { source.stop(); } catch(e){} source.disconnect(); }
-            cancelAnimationFrame(raf);
-
-            if (!ctx) {
-                ctx = new (window.AudioContext || window.webkitAudioContext)();
+    function draw() {
+        const bufferLength = analyser.frequencyBinCount;
+        const data = new Uint8Array(bufferLength);
+        const render = () => {
+            raf = requestAnimationFrame(render);
+            analyser.getByteFrequencyData(data);
+            cctx.fillStyle = "#121212";
+            cctx.fillRect(0, 0, canvas.width, canvas.height);
+            const barWidth = (canvas.width / bufferLength) * 2.5;
+            let x = 0;
+            for (let i = 0; i < bufferLength; i++) {
+                const h = (data[i] / 255) * canvas.height;
+                cctx.fillStyle = `hsl(${200 + (i/bufferLength)*100}, 100%, 50%)`;
+                cctx.fillRect(x, canvas.height - h, barWidth, h);
+                x += barWidth + 1;
             }
-            if (ctx.state === 'suspended') await ctx.resume();
-
-            gain = ctx.createGain();
-            pan = ctx.createStereoPanner();
-            analyser = ctx.createAnalyser();
-            analyser.fftSize = 1024;
-
-            gain.gain.value = volInput.value;
-            pan.pan.value = channel;
-
-            gain.connect(pan).connect(analyser).connect(ctx.destination);
-            drawSpectrum();
-        }
-
-        async function playSine(ch) {
-            await initAudio(ch);
-            currentMode = 'sine';
-            source = ctx.createOscillator();
-            source.type = "sine";
-            source.frequency.value = freqInput.value;
-            source.connect(gain);
-            source.start();
-            updateUI();
-        }
-
-        async function whiteNoise() {
-            await initAudio(0);
-            currentMode = 'noise';
-            const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
-            const data = buffer.getChannelData(0);
-            for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-            source = ctx.createBufferSource();
-            source.buffer = buffer;
-            source.loop = true;
-            source.connect(gain);
-            source.start();
-        }
-
-        async function pinkNoise() {
-            await initAudio(0);
-            currentMode = 'noise';
-            const buffer = ctx.createBuffer(1, ctx.sampleRate * 2, ctx.sampleRate);
-            const data = buffer.getChannelData(0);
-            let b0=0, b1=0, b2=0, b3=0, b4=0, b5=0, b6=0;
-            for (let i = 0; i < data.length; i++) {
-                const w = Math.random() * 2 - 1;
-                b0 = .99886 * b0 + w * .05551; b1 = .99332 * b1 + w * .07503;
-                b2 = .96900 * b2 + w * .15385; b3 = .86650 * b3 + w * .31027;
-                b4 = .55000 * b4 + w * .53295; b5 = -.7616 * b5 - w * .01689;
-                data[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * .5362) * 0.11;
-                b6 = w * .11592;
-            }
-            source = ctx.createBufferSource();
-            source.buffer = buffer;
-            source.loop = true;
-            source.connect(gain);
-            source.start();
-        }
-
-        async function sweep() {
-            await initAudio(0);
-            currentMode = 'sweep';
-            source = ctx.createOscillator();
-            const now = ctx.currentTime;
-            source.frequency.setValueAtTime(20, now);
-            source.frequency.exponentialRampToValueAtTime(20000, now + 10);
-            source.connect(gain);
-            source.start();
-
-            const start = Date.now();
-            const timer = setInterval(() => {
-                if (currentMode !== 'sweep') { clearInterval(timer); return; }
-                const elapsed = (Date.now() - start) / 1000;
-                if (elapsed >= 10) {
-                    freqDisp.innerText = "20000 Hz";
-                    clearInterval(timer);
-                } else {
-                    const currentFreq = Math.round(20 * Math.pow(1000, elapsed / 10));
-                    freqDisp.innerText = currentFreq + " Hz (Sweeping...)";
-                }
-            }, 50);
-        }
-
-        function drawSpectrum() {
-            const bufferLength = analyser.frequencyBinCount;
-            const data = new Uint8Array(bufferLength);
-            function draw() {
-                raf = requestAnimationFrame(draw);
-                analyser.getByteFrequencyData(data);
-                cctx.fillStyle = "#111";
-                cctx.fillRect(0, 0, canvas.width, canvas.height);
-                let x = 0, barW = (canvas.width / bufferLength) * 2.5;
-                for (let i = 0; i < bufferLength; i++) {
-                    const h = (data[i] / 255) * canvas.height;
-                    cctx.fillStyle = `hsl(${190 + (i / bufferLength) * 80}, 80%, 50%)`;
-                    cctx.fillRect(x, canvas.height - h, barW, h);
-                    x += barW + 1;
-                }
-            }
-            draw();
-        }
-    </script>
-	   <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVGNY8FVJE"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-VVGNY8FVJE');
-    </script>
+        };
+        render();
+    }
+</script>
 </body>
 </html>
