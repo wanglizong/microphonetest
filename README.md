@@ -2,7 +2,7 @@
 
 A simple, browser-based microphone testing tool that lets you quickly check if your microphone is working properly — without installing any additional software.
 
-🌐 Live Demo: https://microphone-test.com/
+🌐 Live Demo: https://mic-test.com/
 
 # 🖼️ Preview
 

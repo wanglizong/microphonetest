@@ -1,18 +1,38 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Primary SEO Meta -->
+    <title>Mouse Test – Online Mouse Button Test Tool</title>
     <meta name="description"
-        content="Free online mouse test tool. Test your mouse buttons, left click, right click, middle click, scroll wheel and mouse polling rate instantly in your browser." />
+          content="Free online mouse test tool. Test your mouse buttons, left click, right click, middle click, scroll wheel and mouse polling rate instantly in your browser." />
     <meta name="keywords"
-        content="mouse test, mouse button test, left click test, right click test, middle click test, scroll wheel test, mouse polling rate, online mouse test" />
+          content="mouse test, mouse button test, left click test, right click test, middle click test, scroll wheel test, mouse polling rate, online mouse test" />
     <meta name="author" content="MouseTest" />
 
-    <title>Mouse Test – Online Mouse Button Test Tool</title>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [{
+                "@type": "Question",
+                "name": "How do I test my mouse polling rate?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Move your mouse continuously within the browser window. The tool calculates the frequency of signal updates and displays it as Hertz (Hz)."
+                }
+            }, {
+                "@type": "Question",
+                "name": "Which mouse buttons can be tested online?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can test the Left Click, Right Click, Middle Click (Scroll Wheel), and Side Buttons (Button 4 and Button 5)."
+                }
+            }]
+        }
+    </script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
@@ -46,29 +66,21 @@
         }
 
         .btn-left {
-            top: 0;
-            left: 0;
-            width: 100px;
-            height: 120px;
+            top: 0; left: 0; width: 100px; height: 120px;
             border-top-left-radius: 100px;
             border-right: 1px solid #bbb;
         }
 
         .btn-right {
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: 120px;
+            top: 0; right: 0; width: 100px; height: 120px;
             border-top-right-radius: 100px;
         }
 
         .wheel {
             position: absolute;
-            top: 30px;
-            left: 50%;
+            top: 30px; left: 50%;
             transform: translateX(-50%);
-            width: 26px;
-            height: 50px;
+            width: 26px; height: 50px;
             background: #bbb;
             border-radius: 13px;
         }
@@ -85,151 +97,169 @@
             padding: 12px;
             border-radius: 12px;
             text-align: left;
-            max-height: 160px;
+            max-height: 200px;
             overflow-y: auto;
+            font-family: monospace;
+        }
+
+        .hz-display {
+            background: #fff;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: inline-block;
+            min-width: 200px;
         }
     </style>
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="border-bottom bg-white sticky-top">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light py-2">
-                <a class="navbar-brand fw-bold" href="/">🖱 MouseTest</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="mainNav">
-                    <ul class="navbar-nav ms-auto gap-lg-3">
-                        <li class="nav-item"><a class="nav-link active fw-semibold" href="/">Home</a></li>
-                        <li class="nav-item"><a class="nav-link fw-semibold" href="/microphone-test.html">Microphone
-                                </a></li>
-                        <li class="nav-item"><a class="nav-link fw-semibold" href="/webcam-test.html">Webcam</a></li>
-                        <li class="nav-item"><a class="nav-link fw-semibold" href="/keyboard-test.html">Keyboard</a></li>
-                        <li class="nav-item"><a class="nav-link fw-semibold" href="/touchpad-test.html">Touchpad</a></li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Main -->
-    <main class="container py-4">
-        <div class="card shadow-lg rounded-4 p-4 mx-auto" style="max-width: 720px;">
-            <div class="text-center mb-3">
-                <h2>🖱 Mouse Test</h2>
-                <p class="text-muted mb-0">Test your mouse buttons and polling rate instantly in your browser.</p>
-            </div>
-
-            <div class="text-center my-4">
-                <div class="mouse">
-                    <div class="btn-mouse btn-left" id="leftBtn"></div>
-                    <div class="btn-mouse btn-right" id="rightBtn"></div>
-                    <div class="wheel" id="middleBtn"></div>
-                </div>
-                <p class="text-muted mt-3">Click your mouse buttons or move the mouse to see highlights and polling rate.</p>
-            </div>
-
-            <!-- Mouse Polling Rate Display -->
-            <div class="mt-3 text-center">
-                <h5>Mouse Polling Rate: <span id="pollingRate">0</span> Hz</h5>
-            </div>
-
-            <div class="log" id="log"></div>
-
-            <div class="mt-4">
-                <h3 class="h5 fw-bold mb-3">About This Mouse Test</h3>
-                <p>
-                    This online mouse test helps you instantly check whether your mouse buttons,
-                    scroll wheel and polling rate are working properly, directly in your browser — no download required.
-                </p>
-
-                <h4 class="h6 fw-semibold mt-4">Why use this mouse test?</h4>
-                <p>
-                    While testing the left and right mouse buttons is easy, this tool also measures
-                    the middle button, scroll wheel, side buttons, and mouse polling rate.
-                </p>
-
-                <h4 class="h6 fw-semibold mt-4">Which mouse buttons can be tested?</h4>
-                <ul>
-                    <li>Button 1 – Left mouse button</li>
-                    <li>Button 2 – Middle mouse button (scroll wheel click)</li>
-                    <li>Button 3 – Right mouse button</li>
-                    <li>Button 4 – Side button</li>
-                    <li>Button 5 – Side button</li>
+<header class="border-bottom bg-white sticky-top">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light py-2">
+            <a class="navbar-brand fw-bold" href="/">🖱 MouseTest</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto gap-lg-3">
+                    <li class="nav-item"><a class="nav-link active fw-semibold" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="/mic-test">Microphone</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="/webcam-test">Webcam</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="/keyboard-test">Keyboard</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold" href="/touchpad-test">Touchpad</a></li>
                 </ul>
-
-                <h4 class="h6 fw-semibold mt-4">Browser compatibility</h4>
-                <p>
-                    Works best on modern browsers like <strong>Chrome</strong> and <strong>Firefox</strong>.
-                    Some older browsers may not fully support all mouse events.
-                </p>
             </div>
+        </nav>
+    </div>
+</header>
 
+<main class="container py-4">
+    <div class="card shadow-lg rounded-4 p-4 mx-auto" style="max-width: 800px;">
+        <div class="text-center mb-3">
+            <h1 class="h2 fw-bold">🖱 Online Mouse Test</h1>
+            <p class="text-muted mb-0">Test every button, wheel, and your polling rate (Hz) instantly.</p>
         </div>
-    </main>
 
-    <script>
-        const leftBtn = document.getElementById('leftBtn');
-        const rightBtn = document.getElementById('rightBtn');
-        const middleBtn = document.getElementById('middleBtn');
-        const log = document.getElementById('log');
-        const pollingRateEl = document.getElementById('pollingRate');
+        <div class="text-center my-4">
+            <div class="mouse">
+                <div class="btn-mouse btn-left" id="leftBtn"></div>
+                <div class="btn-mouse btn-right" id="rightBtn"></div>
+                <div class="wheel" id="middleBtn"></div>
+            </div>
+            <p class="text-muted mt-3 small">Click your buttons or move the mouse to start testing.</p>
+        </div>
 
-        function writeLog(msg) {
-            const t = new Date().toLocaleTimeString();
-            log.innerHTML += `[${t}] ${msg}<br/>`;
-            log.scrollTop = log.scrollHeight;
-        }
+        <div class="text-center mb-4">
+            <div class="hz-display">
+                <span class="text-uppercase small fw-bold text-muted">Polling Rate</span>
+                <h2 class="mb-0 fw-bold text-primary"><span id="pollingRate">0</span> Hz</h2>
+            </div>
+        </div>
 
-        // Mouse button events
-        document.addEventListener('mousedown', e => {
-            if (e.button === 0) { leftBtn.classList.add('active'); writeLog('Left button pressed'); }
-            if (e.button === 1) { middleBtn.classList.add('active'); writeLog('Middle button pressed'); }
-            if (e.button === 2) { rightBtn.classList.add('active'); writeLog('Right button pressed'); }
-        });
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="fw-bold small">Live Event Log</span>
+            <button class="btn btn-sm btn-outline-secondary py-0" onclick="document.getElementById('log').innerHTML=''">Clear</button>
+        </div>
+        <div class="log" id="log">Waiting for input...</div>
 
-        document.addEventListener('mouseup', () => {
-            leftBtn.classList.remove('active');
-            rightBtn.classList.remove('active');
-            middleBtn.classList.remove('active');
-        });
+        <div class="mt-5 border-top pt-4">
+            <h2 class="h4 fw-bold mb-4">Frequently Asked Questions</h2>
 
-        // Scroll wheel
-        document.addEventListener('wheel', e => {
-            middleBtn.classList.add('active');
-            writeLog(e.deltaY < 0 ? 'Scroll up' : 'Scroll down');
-            setTimeout(() => middleBtn.classList.remove('active'), 150);
-        });
+            <div class="row g-4 text-start">
+                <div class="col-md-6">
+                    <h3 class="h6 fw-bold">How to test mouse buttons?</h3>
+                    <p class="small text-muted">Click any button on your physical mouse. The corresponding part on the virtual mouse will light up blue if the signal is received correctly by your browser.</p>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="h6 fw-bold">What is a good Polling Rate?</h3>
+                    <p class="small text-muted">A higher Hertz (Hz) means the mouse reports its position more often. Standard mice are 125Hz, while gaming mice usually reach 500Hz or 1000Hz.</p>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="h6 fw-bold">Does it support side buttons?</h3>
+                    <p class="small text-muted">Yes, our tool detects Button 4 and Button 5 (Forward/Back). We automatically block default browser actions so you can test freely.</p>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="h6 fw-bold">Is this test accurate?</h3>
+                    <p class="small text-muted">Web-based tests are highly accurate for buttons and wheels. Polling rate results are smoothed to provide a stable reading despite browser latencies.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 
-        // Prevent context menu on right click
-        document.addEventListener('contextmenu', e => e.preventDefault());
+<script>
+    const leftBtn = document.getElementById('leftBtn');
+    const rightBtn = document.getElementById('rightBtn');
+    const middleBtn = document.getElementById('middleBtn');
+    const log = document.getElementById('log');
+    const pollingRateEl = document.getElementById('pollingRate');
 
-        // Mouse polling rate calculation
-        let lastMoveTime = performance.now();
-        let avgRate = 0;
+    function writeLog(msg) {
+        const t = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute:'2-digit', second:'2-digit' });
+        if(log.innerText === "Waiting for input...") log.innerHTML = "";
+        log.innerHTML += `<div><span style="color:#888">[${t}]</span> ${msg}</div>`;
+        log.scrollTop = log.scrollHeight;
+    }
 
-        document.addEventListener('mousemove', (e) => {
-            const now = performance.now();
-            const interval = now - lastMoveTime;
-            lastMoveTime = now;
+    // Mouse button events
+    document.addEventListener('mousedown', e => {
+        // Block side button default navigation
+        if (e.button >= 3) e.preventDefault();
 
+        let btnName = "Button " + e.button;
+        if (e.button === 0) { leftBtn.classList.add('active'); btnName = "Left Button"; }
+        if (e.button === 1) { middleBtn.classList.add('active'); btnName = "Middle (Wheel) Button"; }
+        if (e.button === 2) { rightBtn.classList.add('active'); btnName = "Right Button"; }
+        if (e.button === 3) btnName = "Side Button (Back)";
+        if (e.button === 4) btnName = "Side Button (Forward)";
+
+        writeLog(`${btnName} pressed`);
+    });
+
+    document.addEventListener('mouseup', () => {
+        leftBtn.classList.remove('active');
+        rightBtn.classList.remove('active');
+        middleBtn.classList.remove('active');
+    });
+
+    // Scroll wheel
+    document.addEventListener('wheel', e => {
+        middleBtn.classList.add('active');
+        writeLog(e.deltaY < 0 ? 'Scroll Wheel Up' : 'Scroll Wheel Down');
+        setTimeout(() => middleBtn.classList.remove('active'), 150);
+    });
+
+    // Prevent context menu on right click
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Mouse polling rate calculation
+    let lastMoveTime = performance.now();
+    let avgRate = 0;
+
+    document.addEventListener('mousemove', () => {
+        const now = performance.now();
+        const interval = now - lastMoveTime;
+        lastMoveTime = now;
+
+        if (interval > 0) {
             const rate = 1000 / interval;
-            avgRate = avgRate ? avgRate * 0.8 + rate * 0.2 : rate; // 平滑处理
+            // Smoothing algorithm for a cleaner display
+            avgRate = (avgRate * 0.95) + (rate * 0.05);
             pollingRateEl.textContent = Math.round(Math.min(avgRate, 1000));
-        });
-    </script>
+        }
+    });
+</script>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVGNY8FVJE"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-        gtag('config', 'G-VVGNY8FVJE');
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVGNY8FVJE"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-VVGNY8FVJE');
+</script>
 </body>
 
 </html>
